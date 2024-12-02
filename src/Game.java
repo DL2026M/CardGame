@@ -132,7 +132,7 @@ public class Game {
             int player2Betting = input.nextInt();
             return player2Betting;
         }
-    // WILL ONLY MAKE THIS FUNCTION IF I HAVE TIME
+    // WILL ONLY MAKE THIS FUNCTION IF I HAVE TIME ()
     //public void splitMyHand(Player otherPlayer) {
         // if the cards are the same rank
         //if () {
