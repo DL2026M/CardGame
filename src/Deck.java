@@ -7,6 +7,7 @@ public class Deck {
 
     // This constructor initializes each of the 52 cards in the deck and gives each of them a rank, suit, and value
     public Deck(String[] ranks, String[] suits, int[] values) {
+        cards = new ArrayList<Card>();
         for (int i=0; i < ranks.length; i++) {
             for (int j=0; j < suits.length; j++) {
                 Card fillerCard = new Card(ranks[i], suits[j], values[i]);
