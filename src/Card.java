@@ -44,5 +44,17 @@ public class Card {
     // Returns the rank and suit of the card
     public String toString() {
         return rank + " of " + suit;
+//        return "------------]\n" +
+//                "|" + rank + suit +
+//                "          |\n" +
+//                "|            |\n" +
+//                "|            |\n" +
+//                "|            |\n" +
+//                "|            |\n" +
+//                "|            |\n" +
+//                "|         " + rank + suit + "|\n" +
+//                "[------------]" + "\n";
+
+
     }
 }

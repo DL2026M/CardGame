@@ -43,6 +43,7 @@ public class Player {
     // Adds another card to the players hand
     public void addCard(Card otherCard) {
         hand.add(otherCard);
+        addPoints(otherCard.getValue());
     }
 
     // Returns how many points the player has and the players hand

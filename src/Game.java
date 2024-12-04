@@ -1,3 +1,4 @@
+// Created by David Lutch on December 4th, 2024
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,13 +13,13 @@ public class Game {
     // Multiple 10 values as Jack, Queen, and King are worth 10 points each in BlackJack
     // Ace value set to 1 regardless of house or player hand
     private int[] values;
-    private boolean player1Turn = true;
-    private boolean player2Turn = false;
+    private int player1Betting;
+    private int player2Betting;
 
     public Game() {
         // Initializing the deck
         ranks = new String[]{"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
-        suits = new String[]{"Hearts", "Clubs", "Spades", "Diamonds"};
+        suits = new String[]{"♥", "♣", "♠", "♢"};
         values = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         // Asking the player for their name
         Scanner input = new Scanner(System.in);
@@ -37,50 +38,26 @@ public class Game {
         player2.addCard(gameDeck.deal());
     }
 
-    public void printInstructions() {
+    private void printInstructions() {
         System.out.println("Welcome to playing BlackJack against the house!");
         System.out.println("Here are the rules and instructions to play BlackJack");
         System.out.println("");
 
     }
-    //methods needed to play (create a turn system)
-    // playerHitMe
-    // stand
-    // blackJack (if 21 points)
-    // winner (if neither player busted)
-    // bust (if higher than 21 points)
-    // tieGame (if points are the same amount)
-    // bettingAmount
-    // split
-    // Creating boolean variables to see who's turn it is
-    // The game starts off with it being player 1's turn
-
-    public void playerTurn() {
-        if (player1Turn) {
-            System.out.println("It's currently " + player1 + " turn!");
-        } else {
-            System.out.println("It's currently " + player2 + " turn!");
+    private void playerHitMe(Player player) {
+        Scanner input = new Scanner(System.in);
+        System.out.print(player + ", do you want to hit? \n If you say no, then you choice to stand (enter yes or no): ");
+        String hit = input.nextLine();
+        if (hit.equals("yes") && (player.getPoints() < 21)) {
+            player.addCard(gameDeck.deal());
+            if (player.getPoints() > 21) {
+                System.out.println(player + " has busted!");
+                return;
+            }
+            playerHitMe(player);
         }
     }
-
-    public void changeTurns(boolean player1Turn, boolean player2Turn) {
-        if (player1Turn) {
-            player1Turn = false;
-            player2Turn = true;
-        } else {
-            player1Turn = true;
-            player2Turn = false;
-        }
-    }
-
-    public void playerHitMe(Player otherPlayer) {
-        otherPlayer.addCard(gameDeck.deal());
-    }
-
-    //public void stand(Player otherPlayer) {
-    //   otherPlayer =
-    //}
-    public void blackJack() {
+    private void blackJack() {
         if (player1.getPoints() == 21) {
             System.out.println(player1 + " has blackjack!");
         }
@@ -90,82 +67,65 @@ public class Game {
     }
 
     // calculates who won the game
-    public void winner() {
+    private void winner() {
         if (player1.getPoints() > player2.getPoints()) {
             if (player1.getPoints() <= 21) {
                 System.out.println("Congratulations! " + player1 + " has won the game with " + player2.getPoints() +
-                        "points! You have won $ " + bettingAmountPlayer2() +
+                        "points! You have won $ " + player2Betting +
                         " .You should leave the casino with your earnings of $ " +
-                        (bettingAmountPlayer2() + bettingAmountPlayer1()));
+                        (player1Betting + player2Betting));
             }
-        }
-        if (player2.getPoints() > player1.getPoints()) {
-            if (player1.getPoints() <= 21) {
-                System.out.println("Congratulations! " + player2 + " has won the game with " + player2.getPoints() +
-                        "points! You have won $ " + bettingAmountPlayer1() +
-                        " .You should leave the casino with your earnings of $ " +
-                        (bettingAmountPlayer1() + bettingAmountPlayer2()));
-            }
+        } else if (player2.getPoints() > player1.getPoints() && player2.getPoints() <= 21) {
+            System.out.println("Congratulations! " + player2 + " has won the game with " + player2.getPoints() +
+                    "points! You have won $ " + player1Betting +
+                    " .You should leave the casino with your earnings of $ " +
+                    (player1Betting + player2Betting));
+        } else if (player1.getPoints() > 21 && player2.getPoints() <= 21) {
+            System.out.println("Congratulations! " + player2 + " has won the game with " + player2.getPoints() +
+                    "points! You have won $ " + player1Betting +
+                    " .You should leave the casino with your earnings of $ " +
+                    (player1Betting + player2Betting));
+        } else {
+            System.out.println("Congratulations! " + player2 + " has won the game with " + player2.getPoints() +
+                    "points! You have won $ " + player1Betting +
+                    " .You should leave the casino with your earnings of $ " +
+                    (player1Betting + player2Betting));
         }
     }
-
-    // See's if either player has over 21 points
-    public void bust() {
-        if (player1.getPoints() > 21) {
-            System.out.println(player1 + " has busted!");
-        }
-        if (player2.getPoints() > 21) {
-            System.out.println(player2 + " has busted!");
-        }
-    }
-//    public boolean bothPlayerStand() {
-//
-//    }
     // If both players stand, then call the isTie game method
-    public boolean isTieGame() {
+    private void isTieGame() {
         if ((player1.getPoints() > 21) && (player2.getPoints() > 21)) {
-              return true;
+            System.out.println("Tie");
         }
-    return (player1.getPoints() == player2.getPoints());
+        if (player1.getPoints() == player2.getPoints()) {
+            System.out.println("Tie");
+        }
     }
     // How much player 1 wants to bet
-    public int bettingAmountPlayer1() {
+    private void bettingAmountPlayer1() {
             Scanner input = new Scanner(System.in);
-            System.out.print(player1 + " Enter how much you want to bet on this round of blackjack." +
+            System.out.print(player1.getName() + " Enter how much you want to bet on this round of blackjack." +
                     " Only integers are valid to bet. Place your bet: $ ");
-            int player1Betting = input.nextInt();
-            return player1Betting;
+            player1Betting = input.nextInt();
         }
     // How much player 2 wants to bet
-    public int bettingAmountPlayer2() {
+    private void bettingAmountPlayer2() {
             Scanner input = new Scanner(System.in);
-            System.out.print(player2 + " Enter how much you want to bet on this round of blackjack." +
+            System.out.print(player2.getName() + " Enter how much you want to bet on this round of blackjack." +
                     " Only integers are valid to bet. Place your bet: $ ");
-            int player2Betting = input.nextInt();
-            return player2Betting;
+            player2Betting = input.nextInt();
         }
 
-    //public boolean isGameOver() {
-        //if (player1.getPoints() > 21)
-    //}
-    // WILL ONLY MAKE THIS FUNCTION IF I HAVE TIME ()
-    //public void splitMyHand(Player otherPlayer) {
-        // if the cards are the same rank
-        //if () {
-            //System.out.println("Do you want to split your hand? If so, then you will ");
-
-       // }
-    public void playBlackJack() {
+    private void playBlackJack() {
         printInstructions();
-        playerTurn();
-        changeTurns(player1Turn, player2Turn);
-        //playerHitMe(player1);
-        //playerHitMe(player2);
-        blackJack();
-        winner();
-        bust();
         bettingAmountPlayer1();
         bettingAmountPlayer2();
+        playerHitMe(player1);
+        blackJack();
+        playerHitMe(player2);
+        blackJack();
+        isTieGame();
+        winner();
 
     }
     public static void main(String[] args) {

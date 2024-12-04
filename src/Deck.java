@@ -49,6 +49,7 @@ public class Deck {
         cards.set(index, cards.get(randomNumber));
         cards.set(randomNumber, temporary);
         index--;
+        randomNumber = (int)(Math.random() * (index + 1));
     }
     cardsLeft = cards.size();
     }
