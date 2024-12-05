@@ -41,9 +41,15 @@ public class Game {
     }
     // Prints out of the rules and instructions on how to play this version of blackjack
     private void printInstructions() {
-        System.out.println("Welcome to playing BlackJack! Let's see how good your gambling skills are!");
-        System.out.print("Here are the rules and instructions to play this version of BlackJack. ");
-        System.out.println("");
+        System.out.println("Welcome to playing BlackJack! Let's see how good your gambling skills are!\n" +
+        "Here are the rules and instructions to play this version of BlackJack. Aces will be worth 1 point\n" +
+        "throughout the entire game. First, both players must enter your name.\n" +
+        "Then, each player will enter the amount of money they would like to bet.\n" +
+        "After betting, player 1 will see their cards and be able to hit or stand. It will be player 2's turn once\n" +
+        "player 1 stands or busts. Player 2 will then be able to hit or stand.\n" +
+        "A player will bust if they have over 21 points. If both players stand and don't hit, whoever has the\n" +
+        "number of points will win. If both players bust, then it's a tie game.\n" +
+        "Once player 1 and player 2 make their moves, a winner will be declared unless it's a tie. Best of luck!\n");
 
     }
     // Asks the player if they would like to hit or stand
@@ -106,10 +112,10 @@ public class Game {
     // Checks to see if either both of the players have busted or if they have the same amount of points
     private void isTieGame() {
         if ((player1.getPoints() > 21) && (player2.getPoints() > 21)) {
-            System.out.println("Tie");
+            System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
         }
         if (player1.getPoints() == player2.getPoints()) {
-            System.out.println("Tie");
+            System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
         }
     }
     // Asks player 1 how much they would like to bet
@@ -148,7 +154,6 @@ public class Game {
         // Prints out who has won the game and with how points
         // This method also prints out how much the winning player has made
         winner();
-
     }
     // Creates a new game and plays the game of blackjack
     public static void main(String[] args) {
