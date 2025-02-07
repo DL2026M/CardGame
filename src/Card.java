@@ -11,32 +11,27 @@ public class Card {
         this.value = value;
     }
 
-    // Gets the cards rank
+    // Getters & setter methods
     public String getRank() {
         return rank;
     }
 
-    // Sets the cards rank
     public void setRank(String rank) {
         this.rank = rank;
     }
 
-    // Gets the cards suit
     public String getSuit() {
         return suit;
     }
 
-    // Sets the cards suit
     public void setSuit(String suit) {
         this.suit = suit;
     }
 
-    // Gets the value of the card
     public int getValue() {
         return value;
     }
 
-    // Sets the value of the card
     public void setValue(int value) {
         this.value = value;
     }

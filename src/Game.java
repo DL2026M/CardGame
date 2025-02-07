@@ -8,15 +8,18 @@ public class Game {
     private Player player2;
     private Deck gameDeck;
     // Each characteristic of a card
-    private String[] ranks;
-    private String[] suits;
+    private final String[] ranks;
+    private final String[] suits;
     // Multiple 10 values as Jack, Queen, and King are worth 10 points each in BlackJack
     // Ace value set to 1 regardless of house or player hand
-    private int[] values;
+    private final int[] values;
     private int player1Betting;
     private int player2Betting;
 
+    private GameViewer window;
+
     public Game() {
+        this.window = new GameViewer(this);
         // Initializing the deck
         ranks = new String[]{"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
         suits = new String[]{"♥", "♣", "♠", "♢"};
@@ -34,12 +37,12 @@ public class Game {
         // Creates a new game deck object that has cards with a rank, suit, and value
         gameDeck = new Deck(ranks, suits, values);
         // Adds two cards to both player 1 and player 2's hand
+        //MAKE A FOR LOOP HERE
         player1.addCard(gameDeck.deal());
         player1.addCard(gameDeck.deal());
         player2.addCard(gameDeck.deal());
         player2.addCard(gameDeck.deal());
     }
-    // Prints out of the rules and instructions on how to play this version of blackjack
     private void printInstructions() {
         System.out.println("Welcome to playing BlackJack! Let's see how good your gambling skills are!\n" +
         "Here are the rules and instructions to play this version of BlackJack. Aces will be worth 1 point\n" +
@@ -52,9 +55,12 @@ public class Game {
         "Once player 1 and player 2 make their moves, a winner will be declared unless it's a tie. Best of luck!\n");
 
     }
-    // Asks the player if they would like to hit or stand
-    // If they hit, then this method will call itself again
-    // It will then ask the player if they want to hit again providing that they have less than 21 points
+
+    /**
+     * // Asks the player if they would like to hit or stand
+     * // If they hit, then this method will call itself again
+     * // It will then ask the player if they want to hit again providing that they have less than 21 points
+     */
     private void playerHitMe(Player player) {
         Scanner input = new Scanner(System.in);
         System.out.print(player + ", do you want to hit?\nIf you say no, then you choice to stand (enter yes or no): ");
@@ -132,27 +138,15 @@ public class Game {
                     " Only integers are valid to bet. Place your bet: $ ");
             player2Betting = input.nextInt();
         }
-    // All the methods put here to play the full game of blackjack
     private void playBlackJack() {
-        // Prints the instructions and the rules of blackjack to both of the players
         printInstructions();
-        // Gets how much player 1 wants to bet
         bettingAmountPlayer1();
-        // Gets how much player 2 wants to bet
         bettingAmountPlayer2();
-        // Checks to see if player 1 wants to hit
-        // This method continues to call itself if the player 1 is under 21 and wants to hit again
         playerHitMe(player1);
-        // Checks to see if player 1 has gotten blackjack
         blackJack();
-        // This method continues to call itself if the player 2 is under 21 and wants to hit again
         playerHitMe(player2);
-        // Checks to see if player 2 has gotten blackjack
         blackJack();
-        // Checks to see if both of the players have busted or if they have the same amount of points
         isTieGame();
-        // Prints out who has won the game and with how points
-        // This method also prints out how much the winning player has made
         winner();
     }
     // Creates a new game and plays the game of blackjack

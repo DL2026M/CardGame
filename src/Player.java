@@ -20,27 +20,23 @@ public class Player {
         points = 0;
     }
 
-    // Gets the name
+    // Getters & setter methods
     public String getName() {
         return name;
     }
 
-    // Gets the players hand
     public ArrayList<Card> getHand() {
         return hand;
     }
 
-    // Gets the players points
     public int getPoints() {
         return points;
     }
 
-    // Adds points
     public int addPoints(int addedPoints) {
         return points += addedPoints;
     }
 
-    // Adds another card to the players hand
     public void addCard(Card otherCard) {
         hand.add(otherCard);
         addPoints(otherCard.getValue());

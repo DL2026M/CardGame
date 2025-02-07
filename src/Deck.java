@@ -23,7 +23,6 @@ public class Deck {
         return cardsLeft == 0;
     }
 
-    // Returns how many cards are left
     public int getCardsLeft(){
         return cardsLeft;
     }
@@ -37,10 +36,12 @@ public class Deck {
     return cards.get(cardsLeft);
     }
 
-    // This function shuffles the deck of cards
-    // For i = last index of the deck down to 0
-    // Generates a random integer r (using Math.random) between 0 and i, inclusive
-    // Exchange cards[i] and cards[r] to shuffle/mix up the cards
+    /**
+     * // This function shuffles the deck of cards
+     * // For i = last index of the deck down to 0
+     * // Generates a random integer r (using Math.random) between 0 and i, inclusive
+     * // Exchange cards[i] and cards[r] to shuffle/mix up the cards
+     */
     public void shuffle() {
     int index = cards.size() - 1;
     int randomNumber = (int)(Math.random() * (index + 1));
