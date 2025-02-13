@@ -7,14 +7,11 @@ public class Game {
     private Player player1;
     private Player player2;
     private Deck gameDeck;
+
     // Each characteristic of a card
     private final String[] ranks;
     private final String[] suits;
-    // Multiple 10 values as Jack, Queen, and King are worth 10 points each in BlackJack
-    // Ace value set to 1 regardless of house or player hand
     private final int[] values;
-    private int player1Betting;
-    private int player2Betting;
 
     private GameViewer window;
 
@@ -37,11 +34,10 @@ public class Game {
         // Creates a new game deck object that has cards with a rank, suit, and value
         gameDeck = new Deck(ranks, suits, values);
         // Adds two cards to both player 1 and player 2's hand
-        //MAKE A FOR LOOP HERE
-        player1.addCard(gameDeck.deal());
-        player1.addCard(gameDeck.deal());
-        player2.addCard(gameDeck.deal());
-        player2.addCard(gameDeck.deal());
+        for (int i = 0; i < 2; i++) {
+            player1.addCard(gameDeck.deal());
+            player2.addCard(gameDeck.deal());
+        }
     }
     private void printInstructions() {
         System.out.println("Welcome to playing BlackJack! Let's see how good your gambling skills are!\n" +
@@ -67,6 +63,7 @@ public class Game {
         String hit = input.nextLine();
         if (hit.equals("yes") && (player.getPoints() < 21)) {
             player.addCard(gameDeck.deal());
+            // Checks to see if they have busted after hitting
             if (player.getPoints() > 21) {
                 System.out.println(player + " has busted!");
                 return;
@@ -85,69 +82,44 @@ public class Game {
     }
 
     // Prints out who won the game if there is a winner
-    private void winner() {
-        // Case #1: See's if player 1 has more points than player 2 and hasn't busted
-        if (player1.getPoints() > player2.getPoints() && player1.getPoints() <= 21) {
-                System.out.println("Congratulations! " + player1 + " has won the game with " + player1.getPoints() +
-                        " points! You have won $" + player2Betting +
-                        ". You should leave the casino with your earnings of $" +
-                        (player1Betting + player2Betting));
+    private void winner(Player winningPlayer, Player loserPlayer) {
+        System.out.println("Congratulations! " + winningPlayer + " has won the game with " + winningPlayer.getPoints() +
+                " points! You have won $" + loserPlayer.getBettingAmount() + ". You should leave the casino with your" +
+                " earnings of $" + (winningPlayer.getBettingAmount() + loserPlayer.getBettingAmount()));
         }
-        // Case #2: See's if player 2 has more points than player 1 and hasn't busted
-        else if (player2.getPoints() > player1.getPoints() && player2.getPoints() <= 21) {
-            System.out.println("Congratulations! " + player2 + " has won the game with " + player2.getPoints() +
-                    " points! You have won $" + player1Betting +
-                    ". You should leave the casino with your earnings of $" +
-                    (player1Betting + player2Betting));
+
+    private void winningHelperFunction(Player player1, Player player2) {
+        // Checks to see if player 1 has won the game
+        if (player1.getPoints() > player2.getPoints() && player1.getPoints() <= 21 || (player2.getPoints() > 21 &&
+                player1.getPoints() <= 21)) {
+            winner(player1, player2);
         }
-        // Case #3: See's if player 1 has busted and player 2 hasn't busted
-        else if (player1.getPoints() > 21 && player2.getPoints() <= 21) {
-            System.out.println("Congratulations! " + player2 + " has won the game with " + player2.getPoints() +
-                    " points! You have won $" + player1Betting +
-                    ". You should leave the casino with your earnings of $" +
-                    (player1Betting + player2Betting));
+        // Checks to see if player 2 has won the game
+        else if (player2.getPoints() > player1.getPoints() && player2.getPoints() <= 21 || (player1.getPoints() > 21 &&
+                player2.getPoints() <= 21)) {
+            winner(player2, player1);
         }
-        // Case #4: See's if player 2 has busted and player 1 hasn't busted
-        else if (player2.getPoints() > 21 && player1.getPoints() <= 21) {
-            System.out.println("Congratulations! " + player1 + " has won the game with " + player1.getPoints() +
-                    " points! You have won $" + player2Betting +
-                    ". You should leave the casino with your earnings of $" +
-                    (player1Betting + player2Betting));
-        }
-    }
-    // Checks to see if either both of the players have busted or if they have the same amount of points
-    private void isTieGame() {
-        if ((player1.getPoints() > 21) && (player2.getPoints() > 21)) {
-            System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
-        }
-        if (player1.getPoints() == player2.getPoints()) {
+        else {
             System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
         }
     }
-    // Asks player 1 how much they would like to bet
-    private void bettingAmountPlayer1() {
+
+    // Asks each player how much they want to bet
+    private void bettingAmount(Player player) {
             Scanner input = new Scanner(System.in);
-            System.out.print(player1.getName() + " Enter how much you want to bet on this round of blackjack." +
+            System.out.print(player.getName() + " Enter how much you want to bet on this round of blackjack." +
                     " Only integers are valid to bet. Place your bet: $ ");
-            player1Betting = input.nextInt();
-        }
-    // Asks player 2 how much they would like to bet
-    private void bettingAmountPlayer2() {
-            Scanner input = new Scanner(System.in);
-            System.out.print(player2.getName() + " Enter how much you want to bet on this round of blackjack." +
-                    " Only integers are valid to bet. Place your bet: $ ");
-            player2Betting = input.nextInt();
-        }
+            player.setBettingAmount(input.nextInt());
+    }
     private void playBlackJack() {
         printInstructions();
-        bettingAmountPlayer1();
-        bettingAmountPlayer2();
+        bettingAmount(player1);
+        bettingAmount(player2);
         playerHitMe(player1);
         blackJack();
         playerHitMe(player2);
         blackJack();
-        isTieGame();
-        winner();
+        winningHelperFunction(player1, player2);
     }
     // Creates a new game and plays the game of blackjack
     public static void main(String[] args) {

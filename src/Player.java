@@ -5,6 +5,7 @@ public class Player {
     private String name;
     private ArrayList<Card> hand;
     private int points;
+    private int bettingAmount;
 
     // Constructor that initializes the name, players hand, and sets points to 0
     public Player(String name, ArrayList<Card> hand) {
@@ -41,7 +42,12 @@ public class Player {
         hand.add(otherCard);
         addPoints(otherCard.getValue());
     }
-
+    public int getBettingAmount() {
+        return bettingAmount;
+    }
+    public void setBettingAmount(int bettingAmount) {
+        this.bettingAmount = bettingAmount;
+    }
     // Returns how many points the player has and the players hand
     public String toString() {
         return name + " has " + points + " points" + "\n" + name + "'s cards: " + hand;
