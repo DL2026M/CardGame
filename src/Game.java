@@ -112,7 +112,6 @@ public class Game {
             player.setBettingAmount(input.nextInt());
     }
 
-    // CONFIRM IS THIS ABSTRACT
     public Player getPlayer(int playerNumber) {
         if (playerNumber == 1) {
             return player1;
