@@ -14,6 +14,8 @@ public class Game {
     private final int[] values;
 
     private GameViewer window;
+    // Constant
+    private final int MAX_POINTS = 21;
 
     public Game() {
         this.window = new GameViewer(this);
@@ -23,20 +25,30 @@ public class Game {
         values = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         // Asks the player for their name
         Scanner input = new Scanner(System.in);
-        System.out.print("Player 1, Enter your game name: ");
-        String playerName1 = input.nextLine();
-        System.out.print("Player 2, Enter your game name: ");
-        String playerName2 = input.nextLine();
+        System.out.println("Would you like to play BlackJack? The instructions are displayed below if you're curious!" +
+                " Enter either Yes or yes to play: ");
+        String willYouPlay = input.nextLine();
+        if (willYouPlay.equals("Yes") || willYouPlay.equals("yes")) {
+            System.out.print("Player 1, Enter your game name: ");
+            String playerName1 = input.nextLine();
+            System.out.print("Player 2, Enter your game name: ");
+            String playerName2 = input.nextLine();
 
-        // Creates a new player object for both player 1 and player 2
-        player1 = new Player(playerName1);
-        player2 = new Player(playerName2);
-        // Creates a new game deck object that has cards with a rank, suit, and value
-        gameDeck = new Deck(ranks, suits, values);
-        // Adds two cards to both player 1 and player 2's hand
-        for (int i = 0; i < 2; i++) {
-            player1.addCard(gameDeck.deal());
-            player2.addCard(gameDeck.deal());
+            // Creates a new player object for both player 1 and player 2
+            player1 = new Player(playerName1);
+            player2 = new Player(playerName2);
+            // Creates a new game deck object that has cards with a rank, suit, and value
+            gameDeck = new Deck(ranks, suits, values);
+            // Adds two cards to both player 1 and player 2's hand
+            for (int i = 0; i < 2; i++) {
+                player1.addCard(gameDeck.deal());
+                player2.addCard(gameDeck.deal());
+            }
+        }
+        else {
+            System.out.println("Smart decision to not gamble your hard earned money away! Run this program again if" +
+                    " you ever decide you want to play BlackJack again.");
+            System.exit(0);
         }
     }
     private void printInstructions() {
@@ -61,10 +73,10 @@ public class Game {
         Scanner input = new Scanner(System.in);
         System.out.print(player + ", do you want to hit?\nIf you say no, then you choice to stand (enter yes or no): ");
         String hit = input.nextLine();
-        if (hit.equals("yes") && (player.getPoints() < 21)) {
+        if (hit.equals("yes") && (player.getPoints() < MAX_POINTS)) {
             player.addCard(gameDeck.deal());
             // Checks to see if they have busted after hitting
-            if (player.getPoints() > 21) {
+            if (player.getPoints() > MAX_POINTS) {
                 System.out.println(player + " has busted!");
                 return;
             }
@@ -73,10 +85,10 @@ public class Game {
     }
     // Prints out if either or both of the players have a blackjack
     private void blackJack() {
-        if (player1.getPoints() == 21) {
+        if (player1.getPoints() == MAX_POINTS) {
             System.out.println(player1 + " has blackjack!");
         }
-        if (player2.getPoints() == 21) {
+        if (player2.getPoints() == MAX_POINTS) {
             System.out.println(player2 + " has blackjack!");
         }
     }
@@ -90,14 +102,14 @@ public class Game {
 
     private void winningHelperFunction(Player player1, Player player2) {
         // Checks to see if player 1 has won the game
-        if (player1.getPoints() > player2.getPoints() && player1.getPoints() <= 21 || (player2.getPoints() > 21 &&
-                player1.getPoints() <= 21)) {
-            winner(player1, player2);
+        if (player1.getPoints() > player2.getPoints() && player1.getPoints() <= MAX_POINTS ||
+                (player2.getPoints() > MAX_POINTS && player1.getPoints() <= MAX_POINTS)) {
+                    winner(player1, player2);
         }
         // Checks to see if player 2 has won the game
-        else if (player2.getPoints() > player1.getPoints() && player2.getPoints() <= 21 || (player1.getPoints() > 21 &&
-                player2.getPoints() <= 21)) {
-            winner(player2, player1);
+        else if (player2.getPoints() > player1.getPoints() && player2.getPoints() <= MAX_POINTS ||
+                (player1.getPoints() > MAX_POINTS && player2.getPoints() <= MAX_POINTS)) {
+                    winner(player2, player1);
         }
         else {
             System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
@@ -121,8 +133,8 @@ public class Game {
         }
     }
     private void playBlackJack() {
-        window.repaint();
         printInstructions();
+        window.repaint();
         bettingAmount(player1);
         bettingAmount(player2);
         window.repaint();
