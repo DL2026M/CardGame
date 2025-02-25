@@ -111,10 +111,22 @@ public class Game {
                     " Only integers are valid to bet. Place your bet: $ ");
             player.setBettingAmount(input.nextInt());
     }
+
+    // CONFIRM IS THIS ABSTRACT
+    public Player getPlayer(int playerNumber) {
+        if (playerNumber == 1) {
+            return player1;
+        }
+        else {
+            return player2;
+        }
+    }
     private void playBlackJack() {
+        window.repaint();
         printInstructions();
         bettingAmount(player1);
         bettingAmount(player2);
+        window.repaint();
         playerHitMe(player1);
         blackJack();
         playerHitMe(player2);

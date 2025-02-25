@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Deck {
@@ -8,10 +10,13 @@ public class Deck {
     // This constructor initializes each of the 52 cards in the deck and gives each of them a rank, suit, and value
     public Deck(String[] ranks, String[] suits, int[] values) {
         cards = new ArrayList<Card>();
+        int counter = 1;
         for (int i=0; i < ranks.length; i++) {
             for (int j=0; j < suits.length; j++) {
-                Card fillerCard = new Card(ranks[i], suits[j], values[i]);
+                String fileName = "Resources/" + counter + ".png";
+                Card fillerCard = new Card(ranks[i], suits[j], values[i], new ImageIcon(fileName).getImage());
                 cards.add(fillerCard);
+                counter++;
             }
         }
         cardsLeft = suits.length * ranks.length;
