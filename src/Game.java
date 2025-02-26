@@ -25,8 +25,6 @@ public class Game {
         values = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
         // Asks the player for their name
         Scanner input = new Scanner(System.in);
-        System.out.println("Would you like to play BlackJack? The instructions are displayed below if you're curious!" +
-                " Enter either Yes or yes to play: ");
         String willYouPlay = input.nextLine();
         if (willYouPlay.equals("Yes") || willYouPlay.equals("yes")) {
             System.out.print("Player 1, Enter your game name: ");
@@ -46,12 +44,10 @@ public class Game {
             }
         }
         else {
-            System.out.println("Smart decision to not gamble your hard earned money away! Run this program again if" +
-                    " you ever decide you want to play BlackJack again.");
             System.exit(0);
         }
     }
-    private void printInstructions() {
+    public void printInstructions() {
         System.out.println("Welcome to playing BlackJack! Let's see how good your gambling skills are!\n" +
         "Here are the rules and instructions to play this version of BlackJack. Aces will be worth 1 point\n" +
         "throughout the entire game. First, both players must enter your name.\n" +
@@ -70,6 +66,7 @@ public class Game {
      * // It will then ask the player if they want to hit again providing that they have less than 21 points
      */
     private void playerHitMe(Player player) {
+        window.repaint();
         Scanner input = new Scanner(System.in);
         System.out.print(player + ", do you want to hit?\nIf you say no, then you choice to stand (enter yes or no): ");
         String hit = input.nextLine();
@@ -115,7 +112,7 @@ public class Game {
             System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
         }
     }
-
+    // ASK MS.NAMASIVAYAM ABOUT IF I CAN DO THIS IN A WHILE LOOP (BC THE GAME STOPS WORKING IF I DON'T ENTER A VALID INT
     // Asks each player how much they want to bet
     private void bettingAmount(Player player) {
             Scanner input = new Scanner(System.in);
@@ -132,16 +129,21 @@ public class Game {
             return player2;
         }
     }
+    // ASK ABOUT REPAINT AND WHETHER TO PUT IT INO EACH SEPARATE FUNCTION
     private void playBlackJack() {
         printInstructions();
         window.repaint();
         bettingAmount(player1);
+        window.repaint();
         bettingAmount(player2);
         window.repaint();
         playerHitMe(player1);
+        window.repaint();
         blackJack();
         playerHitMe(player2);
+        window.repaint();
         blackJack();
+        window.repaint();
         winningHelperFunction(player1, player2);
     }
     // Creates a new game and plays the game of blackjack

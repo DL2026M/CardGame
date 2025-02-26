@@ -41,6 +41,14 @@ public class Card {
         this.value = value;
     }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
     // Returns the rank and suit of the card
     public String toString() {
         return rank + " of " + suit;

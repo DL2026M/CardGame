@@ -13,8 +13,8 @@ public class Deck {
         int counter = 1;
         for (int i=0; i < ranks.length; i++) {
             for (int j=0; j < suits.length; j++) {
-                String fileName = "Resources/" + counter + ".png";
-                Card fillerCard = new Card(ranks[i], suits[j], values[i], new ImageIcon(fileName).getImage());
+                Image cardImage = new ImageIcon("Resources/Cards/" + counter + ".png").getImage();
+                Card fillerCard = new Card(ranks[i], suits[j], values[i], cardImage);
                 cards.add(fillerCard);
                 counter++;
             }
