@@ -47,18 +47,6 @@ public class Game {
             System.exit(0);
         }
     }
-    public void printInstructions() {
-        System.out.println("Welcome to playing BlackJack! Let's see how good your gambling skills are!\n" +
-        "Here are the rules and instructions to play this version of BlackJack. Aces will be worth 1 point\n" +
-        "throughout the entire game. First, both players must enter your name.\n" +
-        "Then, each player will enter the amount of money they would like to bet.\n" +
-        "After betting, player 1 will see their cards and be able to hit or stand. It will be player 2's turn once\n" +
-        "player 1 stands or busts. Player 2 will then be able to hit or stand.\n" +
-        "A player will bust if they have over 21 points. If both players stand and don't hit, whoever has the\n" +
-        "number of points will win. If both players bust, then it's a tie game.\n" +
-        "Once player 1 and player 2 make their moves, a winner will be declared unless it's a tie. Best of luck!\n");
-
-    }
 
     /**
      * // Asks the player if they would like to hit or stand
@@ -112,7 +100,6 @@ public class Game {
             System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
         }
     }
-    // ASK MS.NAMASIVAYAM ABOUT IF I CAN DO THIS IN A WHILE LOOP (BC THE GAME STOPS WORKING IF I DON'T ENTER A VALID INT
     // Asks each player how much they want to bet
     private void bettingAmount(Player player) {
             Scanner input = new Scanner(System.in);
@@ -129,9 +116,7 @@ public class Game {
             return player2;
         }
     }
-    // ASK ABOUT REPAINT AND WHETHER TO PUT IT INO EACH SEPARATE FUNCTION
     private void playBlackJack() {
-        printInstructions();
         window.repaint();
         bettingAmount(player1);
         window.repaint();
@@ -140,9 +125,13 @@ public class Game {
         playerHitMe(player1);
         window.repaint();
         blackJack();
+        window.player1CardsUp = false;
+        window.player2CardsUp = true;
         playerHitMe(player2);
         window.repaint();
         blackJack();
+        window.player1CardsUp = true;
+        window.player2CardsUp = true;
         window.repaint();
         winningHelperFunction(player1, player2);
     }
