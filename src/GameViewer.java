@@ -13,7 +13,7 @@ public class GameViewer extends JFrame {
     private Image winningPage;
     private String winningMessage;
 
-    // 0 equals in instructions page, 1 equals gameplay, and 2 equals winning page
+    // For the gameState variable 0 equals in instructions page, 1 equals gameplay, and 2 equals winning page
     private int gameState = 0;
     private boolean cardsUp = false;
     public boolean player1CardsUp = false;
