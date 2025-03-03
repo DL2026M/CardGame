@@ -1,4 +1,4 @@
-// Created by David Lutch on December 4th, 2024
+// Created by David Lutch on March 2nd, 2025
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -80,9 +80,9 @@ public class Game {
 
     // Prints out who won the game if there is a winner
     private void winner(Player winningPlayer, Player loserPlayer) {
-        System.out.println("Congratulations! " + winningPlayer + " has won the game with " + winningPlayer.getPoints() +
-                " points! You have won $" + loserPlayer.getBettingAmount() + ". You should leave the casino with your" +
-                " earnings of $" + (winningPlayer.getBettingAmount() + loserPlayer.getBettingAmount()));
+        window.setWinningMessage(winningPlayer.getName() +  " has won the game with " + winningPlayer.getPoints() +
+                " points! You have won $" + loserPlayer.getBettingAmount() + ". Your total winnings are $" +
+                (winningPlayer.getBettingAmount() + loserPlayer.getBettingAmount()));
         }
 
     private void winningHelperFunction(Player player1, Player player2) {
@@ -97,14 +97,14 @@ public class Game {
                     winner(player2, player1);
         }
         else {
-            System.out.println("Tie game! There is no winners and you didn't lose or make any money!");
+            window.setWinningMessage("Tie game! There is no winners and you didn't lose or make any money!");
         }
     }
     // Asks each player how much they want to bet
     private void bettingAmount(Player player) {
             Scanner input = new Scanner(System.in);
             System.out.print(player.getName() + " Enter how much you want to bet on this round of blackjack." +
-                    " Only integers are valid to bet. Place your bet: $ ");
+                    " Only integers are valid to bet. Place your bet: $");
             player.setBettingAmount(input.nextInt());
     }
 
@@ -134,6 +134,7 @@ public class Game {
         window.player2CardsUp = true;
         window.repaint();
         winningHelperFunction(player1, player2);
+        window.repaint();
     }
     // Creates a new game and plays the game of blackjack
     public static void main(String[] args) {

@@ -6,7 +6,13 @@ public class Card {
     private String suit;
     private int value;
     private Image image;
-
+    /**
+        // Content Standard #3: Can write a class containing instance variables, constructors, and methods, using access
+        // modifiers (private vs public) appropriately.
+        // This entire card class is a perfect example of a class that contains instance variables, a constructor that
+        // initializes the instance variables, a toString method that ranks the rank and suit of a card, and public
+        // getters/setters for all the attributes of a card (rank, suit, value, and image).
+        */
 
     // Constructor that initializes the cards rank, suit, and value
     public Card(String rank, String suit, int value, Image image) {
@@ -15,6 +21,13 @@ public class Card {
         this.value = value;
         this.image = image;
     }
+    /**
+        // Content Standard #4: Can write methods, including accessors (getters) and mutators (setters), with correct
+        // return types.
+        // All the getters displayed below have no parameters and a correct return type. For example, the getRank() and
+        // getSuit() methods return a string because both the rank and suit's data types are strings. The setters below
+        // have a void return type and take in one parameter (the data type depends on what is being set).
+        */
 
     // Getters & setter methods
     public String getRank() {

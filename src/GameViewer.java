@@ -1,3 +1,4 @@
+// Created by David Lutch on March 2nd, 2025
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ public class GameViewer extends JFrame {
     private Image cardBackSide;
     private Image background;
     private Image introPage;
+    private Image winningPage;
+    private String winningMessage;
 
     // 0 equals in instructions page, 1 equals gameplay, and 2 equals winning page
     private int gameState = 0;
@@ -26,7 +29,7 @@ public class GameViewer extends JFrame {
     private final int XCORD_PLAYER2 = 400;
     private final int FONT_SIZE = 40;
     private final int PLAYERNAMES_XCORD= 450;
-    private final int PLAYER1_YCORD = 650;
+    private final int PLAYER1_YCORD = 630;
     private final int PLAYER2_YCORD = 120;
     private final int PLAYER1_XCORD_BETTING = 35;
     private final int PLAYER2_XCORD_BETTING = 600;
@@ -34,6 +37,8 @@ public class GameViewer extends JFrame {
     private final int PLAYER2_YCORD_BETTING = 80;
     private final int STARTING_XCORD = 0;
     private final int STARTING_YCORD = 0;
+    private final int WINNING_XCORD = 10;
+    private final int WINNING_YCORD = 200;
 
 
     public GameViewer(Game game) {
@@ -41,11 +46,13 @@ public class GameViewer extends JFrame {
         this.background = new ImageIcon("Resources/table.jpeg").getImage();
         this.cardBackSide = new ImageIcon("Resources/Cards/back.png").getImage();
         this.introPage = new ImageIcon("Resources/IntroWindow.png").getImage();
+        this.winningPage = new ImageIcon("Resources/winningPage.png").getImage();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("BlackJack");
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setVisible(true);
     }
+    // A helper function that either draws a card face up or face down depending on the parameters inputted
     private void drawCards(Graphics g, ArrayList<Card> Cards, int xCord, int yCord, boolean faceUp) {
         for (int j = 0; j < Cards.size(); j++) {
             if (faceUp) {
@@ -57,8 +64,11 @@ public class GameViewer extends JFrame {
             }
         }
     }
-            
-            
+
+    public void setWinningMessage(String winningMessage) {
+        this.winningMessage = winningMessage;
+    }
+
     public void paint(Graphics g) {
         // Beckett taught me how to do a switch statement
         g.setColor(Color.black);
@@ -92,10 +102,12 @@ public class GameViewer extends JFrame {
                     drawCards(g, game.getPlayer(1).getHand(), XCORD_PLAYER1, YCORD_PLAYER1, true);
                     drawCards(g, game.getPlayer(2).getHand(), XCORD_PLAYER2, YCORD_PLAYER2, false);
                 }
+                // Draws player 1 cards face down and player 2 cards face up
                 else if (!player1CardsUp) {
                     drawCards(g, game.getPlayer(1).getHand(), XCORD_PLAYER1, YCORD_PLAYER1, false);
                     drawCards(g, game.getPlayer(2).getHand(), XCORD_PLAYER2, YCORD_PLAYER2, true);
                 }
+                // Both players turns are over so all the cards will be drawn face up
                 else {
                     drawCards(g, game.getPlayer(1).getHand(), XCORD_PLAYER1, YCORD_PLAYER1, true);
                     drawCards(g, game.getPlayer(2).getHand(), XCORD_PLAYER2, YCORD_PLAYER2, true);
@@ -104,6 +116,11 @@ public class GameViewer extends JFrame {
                 break;
             case 2:
                 // Winning page
+                g.drawImage(winningPage, STARTING_XCORD, STARTING_YCORD, WINDOW_WIDTH,WINDOW_HEIGHT,this);
+                g.setFont(new Font("Serif", Font.PLAIN, FONT_SIZE -17));
+                // Prints the winning message that displays how much the winning player won
+                g.drawString(winningMessage, WINNING_XCORD, WINNING_YCORD);
+                gameState++;
                 break;
         }
     }

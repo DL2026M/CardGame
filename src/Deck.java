@@ -12,11 +12,13 @@ public class Deck {
         cards = new ArrayList<Card>();
         int counter = 1;
         /**
-        // Content Standard #1: Understand how to use nesting to embed loops and conditionals inside of other loops
-        // and conditionals.
-        // While I don't have any if or while statements in my nested for loops for this code, I'll still explain it.
-        //
-        */
+            // Content Standard #1: Understand how to use nesting to embed loops and conditionals inside of other loops
+            // and conditionals.
+            // While I don't have any if or while statements in my nested for loops for this code, I'll still explain it.
+            // You could have one for loop (or more), and then  an if statement between or after both of those for loops.
+            // This could be helpful for many different reasons, but one of these reasons can be to keep track of the sum
+            // of the numbers in a 2D array.
+            */
         for (int i=0; i < ranks.length; i++) {
             for (int j=0; j < suits.length; j++) {
                 Image cardImage = new ImageIcon("Resources/Cards/" + counter + ".png").getImage();
@@ -48,10 +50,10 @@ public class Deck {
     }
 
     /**
-     * // This function shuffles the deck of cards
-     * // For i = last index of the deck down to 0
-     * // Generates a random integer r (using Math.random) between 0 and i, inclusive
-     * // Exchange cards[i] and cards[r] to shuffle/mix up the cards
+      // This function shuffles the deck of cards
+      // For i = last index of the deck down to 0
+      // Generates a random integer r (using Math.random) between 0 and i, inclusive
+      // Exchange cards[i] and cards[r] to shuffle/mix up the cards
      */
     public void shuffle() {
     int index = cards.size() - 1;
@@ -68,14 +70,14 @@ public class Deck {
         // index is above or equal to 0.
 
         // An example of a for loop (in this case a nested for loop, but many single for loops around my code), is
-        // displayed above between lines FILL ME IN and FILL ME IN. A for loop will run and operate the code inside of
+        // displayed above between lines 22 and 23. A for loop will run and operate the code inside of
         // it for a set amount, which in this case creates the cards images and all the attributes attached to each
         // card.
          */
     while(index >= 0) {
     /**
     // Content standard #7: Can use ArrayList methods.
-        // While I don't use every ArrayList, I use more than half in my code. First, on line #FILL ME IN, I use the
+        // While I don't use every ArrayList, I use more than half in my code. First, on line 26, I use the
         // .add() method when adding a new card that has a rank, suit, value, and an image to my cards ArrayList.
         // Secondly, I use the .get() method in this while loop to get the location of a card and to get a random number.
         // I also the .set() method in this while loop to set cards in the deck to a random locations throughout the deck

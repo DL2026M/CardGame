@@ -3,7 +3,25 @@ import java.util.ArrayList;
 public class Player {
     // Instance variables
     private String name;
+    /**
+        // Content Standard #6: Understand the differences between Arrays and ArrayLists and can articulate the reasons for
+        // using one over the other.
+        // The difference between Arrays and ArrayLists is that you cannot change the size of an array once it’s declared
+        // (fixed size), but can change the size of an ArrayList once it's declared. This means you cannot add or remove an
+        // element to an Array, but can for an ArrayList. If the problem you are coding/solving requires you to add or
+        // remove elements, you have to use an ArrayList. In addition, ArrayLists don’t hold primitive object types
+        // (Int, double, boolean, or char) and instead you have to use a wrapper class. If you have a fixed size
+        // (grid or something), you have to use Arrays. In this case, the amount of cards a player has in the hands cannot
+        // be fixed as they could add more cards, which is why this is an ArrayList.
+        */
     private ArrayList<Card> hand;
+    /**
+     // Content Standard #5: Can declare and initialize Arrays, ArrayLists, and 2D Arrays.
+     // Line #17 declares an ArrayList and line #35 initializes this ArrayList. In my Game class, I declare and
+     // initialize multiple 1D array's. For example, in the Game class I declare 3 Arrays from line #12 to line #14.
+     // I initialize these Arrays between line #23 to line #25. This line of code would be the same for a 2D Array
+     // beside adding arrayName[][] while declaring and initializing both the rows and columns.
+     */
     private int points;
     private int bettingAmount;
 
