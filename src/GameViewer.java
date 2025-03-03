@@ -107,7 +107,7 @@ public class GameViewer extends JFrame {
                     drawCards(g, game.getPlayer(1).getHand(), XCORD_PLAYER1, YCORD_PLAYER1, false);
                     drawCards(g, game.getPlayer(2).getHand(), XCORD_PLAYER2, YCORD_PLAYER2, true);
                 }
-                // Both players turns are over so all the cards will be drawn face up
+                // Both players turns are finished so all the cards will be drawn face up
                 else {
                     drawCards(g, game.getPlayer(1).getHand(), XCORD_PLAYER1, YCORD_PLAYER1, true);
                     drawCards(g, game.getPlayer(2).getHand(), XCORD_PLAYER2, YCORD_PLAYER2, true);
